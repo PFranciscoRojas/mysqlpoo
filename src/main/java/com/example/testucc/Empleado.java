@@ -7,17 +7,17 @@ import jakarta.persistence.Id;
 
 @Entity
 public class Empleado {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String nombre;
-    private double salario;
+    private Double salario;  
 
     public Empleado() {
     }
 
-    public Empleado(String nombre, double salario) {
+    public Empleado(String nombre, Double salario) {  
         this.nombre = nombre;
         this.salario = salario;
     }
@@ -38,11 +38,11 @@ public class Empleado {
         this.nombre = nombre;
     }
 
-    public double getSalario() {
+    public Double getSalario() {  
         return salario;
     }
 
-    public void setSalario(double salario) {
+    public void setSalario(Double salario) { 
         this.salario = salario;
     }
 }

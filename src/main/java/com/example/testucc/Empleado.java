@@ -12,12 +12,12 @@ public class Empleado {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String nombre;
-    private Double salario;  // Cambié de 'double' a 'Double' para permitir valores nulos
+    private Double salario;  
 
     public Empleado() {
     }
 
-    public Empleado(String nombre, Double salario) {  // Cambié de 'double' a 'Double'
+    public Empleado(String nombre, Double salario) {  
         this.nombre = nombre;
         this.salario = salario;
     }
@@ -38,11 +38,11 @@ public class Empleado {
         this.nombre = nombre;
     }
 
-    public Double getSalario() {  // Cambié el tipo de 'double' a 'Double'
+    public Double getSalario() {  
         return salario;
     }
 
-    public void setSalario(Double salario) {  // Cambié de 'double' a 'Double'
+    public void setSalario(Double salario) { 
         this.salario = salario;
     }
 }

@@ -1,27 +1,31 @@
 package com.example.testucc;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 @Entity
+@Table(name = "empleado")
 public class Empleado {
-    
+
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY) // Usa IDENTITY en lugar de AUTO
     private Long id;
+
+    @Column(nullable = false)
     private String nombre;
+
     private double salario;
 
+    // Constructor vacío
     public Empleado() {
     }
 
+    // Constructor con inicialización de atributos
     public Empleado(String nombre, double salario) {
         this.nombre = nombre;
         this.salario = salario;
     }
 
+    // Getters y Setters
     public Long getId() {
         return id;
     }

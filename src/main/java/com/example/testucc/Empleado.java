@@ -6,7 +6,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
 @Entity
-public class Empleado {
+public class empleado {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -14,10 +14,10 @@ public class Empleado {
     private String nombre;
     private double salario;
 
-    public Empleado() {
+    public empleado() {
     }
 
-    public Empleado(String nombre, double salario) {
+    public empleado(String nombre, double salario) {
         this.nombre = nombre;
         this.salario = salario;
     }

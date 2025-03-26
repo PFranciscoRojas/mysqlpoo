@@ -58,10 +58,9 @@ public class EmpleadoController {
     public String putMethodName(@PathVariable String id, @RequestBody String entity) {
         
         
-        return entity;
+    return entity;
     }
 
-    
     @PatchMapping("/{id}")
     public void actualizarEmpleadoParcial(@PathVariable Long id, @RequestBody Empleado empleadoActualizado) {
         empleadoRepository.findById(id).ifPresent(empleado -> {
@@ -80,12 +79,4 @@ public class EmpleadoController {
     public List<Empleado> actualizarVarios(@RequestBody List<Empleado> empleados) {
         return empleadoRepository.saveAll(empleados);
     }
-
-
-
-
-
-    
-    
-    
 }

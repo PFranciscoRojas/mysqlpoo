@@ -13,6 +13,6 @@ public class SaludoController {
 
     @GetMapping("/saludo")
     public String getSaludo(){
-       return saludoService.saludar("Fran");
+       return saludoService.saludar("tomasin");
     }
 }

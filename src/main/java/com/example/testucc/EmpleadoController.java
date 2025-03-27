@@ -3,80 +3,73 @@ package com.example.testucc;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 
 
 @RestController
 @RequestMapping("/empleados")
 public class EmpleadoController {
-    
+
     @Autowired
-    private EmpleadoRepository empleadoRepository;
+    private EmpleadoService empleadoService;
 
+
+    // http://localhost:8090/empleados
     @GetMapping
-    public List<Empleado> obtenerTodo(){
-        return empleadoRepository.findAll();
+    public List<Empleado> getEmpleados() {
+        return empleadoService.getEmpleados();
     }
 
-    @PostMapping
-    public Empleado guardarTodo(@RequestBody Empleado empleado){
-        return empleadoRepository.save(empleado);
-    }
-    
-    @PutMapping("/{id}")
-    public Empleado actualizarEmpleado(@PathVariable String id, @RequestBody Empleado empleado) {
-        return empleadoRepository.save(empleado);
-    }
-
-    
-    @DeleteMapping("/{id}")
-    public void eliminarEmpleado(@PathVariable String id){
-        empleadoRepository.deleteById(Long.parseLong(id));;
-    }
+    //// http://localhost:8090/empleados/search?nombre=tomas
     @GetMapping("/search")
-    public List<Empleado> buscarEmpleadoPorNombre(@RequestParam String nombre) {
-        return empleadoRepository.findByNombre(nombre);
-    }
-    
-    @GetMapping("/sort")
-    public List<Empleado> ordenarEmpleadosPorSalario() {
-        return empleadoRepository.findAllByOrderBySalarioDesc();
-    }
-    @PutMapping("batch/{id}")
-    public String putMethodName(@PathVariable String id, @RequestBody String entity) {
-        
-        
-    return entity;
+    public List<Empleado> findByNombre(@RequestParam String nombre) {
+        return empleadoService.findByNombre(nombre);
     }
 
+    // http://localhost:8090/empleados/1
     @PatchMapping("/{id}")
-    public void actualizarEmpleadoParcial(@PathVariable Long id, @RequestBody Empleado empleadoActualizado) {
-        empleadoRepository.findById(id).ifPresent(empleado -> {
-
-            if (empleadoActualizado.getNombre() != null) {
-                empleado.setNombre(empleadoActualizado.getNombre());
-            }
-            if (empleadoActualizado.getSalario() != 0.0) {
-                empleado.setSalario(empleadoActualizado.getSalario());
-            }
-
-            empleadoRepository.save(empleado);
-        });
+    public Empleado updateEmpleadoNombre(@PathVariable Long id, @RequestBody Empleado empleado) {
+        return empleadoService.updateEmpleadoNombre(id, empleado);
     }
+
+    // http://localhost:8090/empleados/sort
+    @GetMapping("/sort")
+    public List<Empleado> getEmpleadosSortedBySalarioDesc() {
+        return empleadoService.getEmpleadosSortedBySalarioDesc();
+    }
+
+    // http://localhost:8090/empleados
+    @PostMapping
+    public Empleado saveEmpleado(@RequestBody Empleado empleado) {
+        return empleadoService.saveEmpleado(empleado);
+    }
+
+    //// http://localhost:8090/empleados/1
+    @PutMapping("/{id}")
+    public Empleado updateEmpleado(@PathVariable Long id, @RequestBody Empleado empleado) {
+        return empleadoService.updateEmpleado(id, empleado);
+    }
+
+    // http://localhost:8090/empleados/1
+    @DeleteMapping("/{id}")
+    public void deleteEmpleado(@PathVariable Long id) {
+        empleadoService.deleteEmpleado(id);
+    }
+
+
+    // http://localhost:8090/empleados/batch
     @PutMapping("/batch")
-    public List<Empleado> actualizarVarios(@RequestBody List<Empleado> empleados) {
-        return empleadoRepository.saveAll(empleados);
+    public void updateAllEmpleados(@RequestBody Empleado empleado) {
+        empleadoService.updateAllEmpleados(empleado.getNombre(), empleado.getSalario());
     }
 }
